@@ -4,7 +4,6 @@ import sys
 
 from django.contrib.staticfiles.management.commands.runserver import Command \
     as StaticfilesRunserverCommand
-from django.utils import six
 
 from brunch.conf import settings
 from brunch.utils import check_pid
@@ -27,7 +26,7 @@ class Command(StaticfilesRunserverCommand):
         if settings.BRUNCH_SERVER:
             args.append('--server')
 
-        if isinstance(cmd, six.string_types):
+        if isinstance(cmd, str):
             if shell:
                 cmd = " ".join([cmd] + args)
             else:
@@ -37,7 +36,7 @@ class Command(StaticfilesRunserverCommand):
         else:
             cmd += args
 
-        if shell and not isinstance(cmd, six.string_types):
+        if shell and not isinstance(cmd, str):
             print("WARNING: BRUNCH_SHELL is true, but BRUNCH_CMD is not a string, attempting to fix")
             cmd = " ".join(cmd)
 
